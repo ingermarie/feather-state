@@ -9,11 +9,9 @@
         "allowSyntheticDefaultImports": true,
         "strictNullChecks": true,
         "sourceMap": true,
-        "composite": true,
-        "declarationDir": "./dist/types",
         "outDir": "./dist"
     },
     "include": [
-        "./**/*.ts"
+        "./src/**/*.ts"
     ]
 }
