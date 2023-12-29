@@ -1,7 +1,7 @@
 # Feather State
 ![gzip](https://img.shields.io/badge/gzip-351_bytes-green)
 ![license](https://img.shields.io/badge/license-ISC-blue)
-![version](https://img.shields.io/badge/npm-v1.0.0-blue)
+![version](https://img.shields.io/badge/npm-v1.0.2-blue)
 
 ✨ A feather light state framework ✨ 351 bytes minified and gzipped - no dependencies
 
@@ -12,7 +12,7 @@ Companion frameworks:
 - Render - [feather-render](https://www.npmjs.com/package/feather-render)
 - State React - [feather-state-react](https://www.npmjs.com/package/feather-state-react)
 
-[![version](https://img.shields.io/badge/Buy_me_a_coffee_❤️-724e2c)](https://www.paypal.com/paypalme/featherframework)
+[![version](https://img.shields.io/badge/Buy_me_a_coffee%3F_❤️-724e2c)](https://www.paypal.com/paypalme/featherframework)
 
 ## Getting started
 ```
@@ -26,10 +26,10 @@ import { store } from 'feather-state';
 const { watch, ...state } = store({
   completeCount: 1,
   todos: [{
-    title: 'Walk dog',
+    title: 'Todo 1',
     done: true
   }, {
-    title: 'Dinner',
+    title: 'Todo 2',
     done: false
   }]
 });
@@ -58,25 +58,25 @@ See [example](##Examples) usage below.
 store(state) => { state, watch() } | { ...state, watch() };
 ```
 #### Parameters
-- `state`: state value
+- `state` - state value
 
 #### Return values
-- `state` | `...state`: state value
-- `watch()`: watch for shallow mutations
+- `state` | `...state` - state value
+- `watch()` - watch for shallow mutations
 
 ---
 
-### `store() => watch()`
+### `store().watch()`
 ```typescript
 watch(parent, key, callback) => unwatch();
 ```
 #### Parameters
-- `parent`: parent object of watched value
-- `key`: key of watched value
-- `callback()`: function called when value changes
+- `parent` - parent object of watched value
+- `key` - key of watched value
+- `callback()` - function called when value changes
 
 #### Return value
-- `unwatch()`: function to unwatch value
+- `unwatch()` - function to unwatch value
 
 ## Examples
 ### Object values: e.g. `array`, `object`
