@@ -13,12 +13,7 @@ export type Store<S = unknown> = {
 	) => () => void;
 } & (S extends object ? S : { state: S });
 
-function watch<P extends object, K extends keyof Omit<P, 'watch'>>(
-	this: IStore,
-	parent: P,
-	key: K,
-	notify: (next: P[K], prev: P[K]) => void
-): () => void {
+const watch: Store['watch'] = function(this: IStore, parent, key, notify) {
 	let internalValue = parent[key];
 	Object.defineProperty(parent, key, {
 		set: (value) => {
@@ -50,8 +45,7 @@ function watch<P extends object, K extends keyof Omit<P, 'watch'>>(
 	const length = keyWatchers.push(notify);
 	const index = length - 1;
 
-	// Unwatch
-	return () => {
+	const unwatch = () => {
 		const refWatchers = this.watchers.get(parent);
 		const keyWatchers = refWatchers?.[key];
 		if (!refWatchers) return;
@@ -65,6 +59,10 @@ function watch<P extends object, K extends keyof Omit<P, 'watch'>>(
 			this.watchers.delete(parent);
 		}
 	};
+	if (typeof window !== 'undefined' && typeof window.__featherCurrentRender__?.unmount === 'function') {
+		window.__featherCurrentRender__.unmount(unwatch);
+	}
+	return unwatch;
 };
 
 export const store = <S>(state: S): Store<S> => {
@@ -73,7 +71,7 @@ export const store = <S>(state: S): Store<S> => {
 
 	Object.defineProperties(storeApi, {
 		watchers: { value: watchers },
-		watch: { value: watch.bind(storeApi as IStore) }
+		watch: { value: watch.bind(storeApi) }
 	});
 
 	return storeApi as Store<S>;
