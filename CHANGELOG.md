@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.1.2
+- Update README.md
+
 ## v1.1.1
 - Fix: Clean up all references on unwatch
 

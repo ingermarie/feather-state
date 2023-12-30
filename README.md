@@ -1,7 +1,7 @@
 # Feather State
 ![gzip](https://img.shields.io/badge/gzip-351_bytes-green)
 ![license](https://img.shields.io/badge/license-ISC-blue)
-![version](https://img.shields.io/badge/npm-v1.1.1-blue)
+![version](https://img.shields.io/badge/npm-v1.1.2-blue)
 
 ✨ A feather light state framework ✨ 351 bytes minified and gzipped - no dependencies
 
@@ -12,7 +12,7 @@ Companion frameworks:
 - Render - [feather-render](https://www.npmjs.com/package/feather-render)
 - State React - [feather-state-react](https://www.npmjs.com/package/feather-state-react)
 
-[![version](https://img.shields.io/badge/Buy_me_a_coffee%3F_❤️-724e2c)](https://www.paypal.com/paypalme/featherframework)
+[![coffee](https://img.shields.io/badge/Buy_me_a_coffee%3F_❤️-724e2c)](https://www.paypal.com/paypalme/featherframework)
 
 ## Getting started
 ```
@@ -91,18 +91,18 @@ const { watch, ...state } = store({
 watch(state, 'isPlaying', (next) => {
   if (next) {
     videoEl.play();
-    playPauseAriaLabel = 'Pause';
+    state.playPauseAriaLabel = 'Pause';
   } else {
     videoEl.pause();
-    playPauseAriaLabel = 'Play';
+    state.playPauseAriaLabel = 'Play';
   }
 });
 
 const handleVisibilitychange = () => {
   if (document.visibilityState === "visible") {
-    video.isPlaying = true;
+    state.isPlaying = true;
   } else {
-    video.isPlaying = false;
+    state.isPlaying = false;
   }
 };
 ```
