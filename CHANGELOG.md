@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.1.1
+- Fix: Clean up all references on unwatch
+
 ## v1.1.0
 - Automatically remove watchers when components unmount from DOM    
 *Note: async watchers and watchers outside components need to be manually unwatched.*

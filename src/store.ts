@@ -5,13 +5,15 @@ type IStore<S = unknown> = Store<S> & {
 	>;
 };
 
-export type Store<S = unknown> = {
-	watch: <P extends object, K extends keyof Omit<P, 'watch'>>(
+type BStore = {
+	watch: <P extends object, K extends keyof Omit<P, keyof BStore>>(
 		parent: P,
 		key: K,
 		notify: (next: P[K], prev: P[K]) => void
 	) => () => void;
-} & (S extends object ? S : { state: S });
+};
+
+export type Store<S = unknown> = BStore & (S extends object ? S : { state: S });
 
 const watch: Store['watch'] = function(this: IStore, parent, key, notify) {
 	let internalValue = parent[key];
@@ -42,20 +44,18 @@ const watch: Store['watch'] = function(this: IStore, parent, key, notify) {
 		keyWatchers = [];
 		refWatchers[key] = keyWatchers;
 	}
-	const length = keyWatchers.push(notify);
-	const index = length - 1;
+	keyWatchers.push(notify);
 
 	const unwatch = () => {
-		const refWatchers = this.watchers.get(parent);
-		const keyWatchers = refWatchers?.[key];
-		if (!refWatchers) return;
+		const index = keyWatchers ? keyWatchers.indexOf(notify) : -1;
 
-		keyWatchers?.splice(index, 1);
-
-		if (!keyWatchers?.length) {
+		if (index !== -1) {
+			keyWatchers?.splice(index, 1);
+		}
+		if (refWatchers && !keyWatchers?.length) {
 			delete refWatchers[key];
 		}
-		if (!Object.keys(refWatchers).length) {
+		if (refWatchers && !Object.keys(refWatchers).length) {
 			this.watchers.delete(parent);
 		}
 	};
