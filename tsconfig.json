@@ -3,7 +3,6 @@
         "strict": true,
         "module": "es6",
         "target": "ESNext",
-        "jsx": "preserve",
         "removeComments": true,
         "moduleResolution": "node",
         "allowSyntheticDefaultImports": true,

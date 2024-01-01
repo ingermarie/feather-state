@@ -1,12 +1,13 @@
 # Feather State
-![gzip](https://img.shields.io/badge/gzip-351_bytes-green)
+![gzip](https://img.shields.io/badge/gzip-446_bytes-green)
 ![license](https://img.shields.io/badge/license-ISC-blue)
-![version](https://img.shields.io/badge/npm-v1.1.2-blue)
+![version](https://img.shields.io/badge/npm-v1.1.3-blue)
 
 ✨ A feather light state framework ✨ 351 bytes minified and gzipped - no dependencies
 
 Live examples:
 - [Feather To-Do app](https://codesandbox.io/p/devbox/feather-to-do-app-k5ss8j)
+- [Feather To-Do app (inline)](https://codesandbox.io/p/devbox/feather-to-do-inline-4zt7ls)
 
 Companion frameworks:
 - Render - [feather-render](https://www.npmjs.com/package/feather-render)
@@ -18,6 +19,7 @@ Companion frameworks:
 ```
 npm i feather-state
 ```
+
 
 ## Usage
 ```typescript

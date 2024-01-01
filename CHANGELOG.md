@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.1.3
+- New: Minified and inlinable script (see example link in README.md)
+
 ## v1.1.2
 - Update README.md
 
