@@ -1,9 +1,9 @@
 # Feather State
 ![gzip](https://img.shields.io/badge/gzip-446_bytes-green)
 ![license](https://img.shields.io/badge/license-ISC-blue)
-![version](https://img.shields.io/badge/npm-v1.1.3-blue)
+![version](https://img.shields.io/badge/npm-v1.1.4-blue)
 
-✨ A feather light state framework ✨ 351 bytes minified and gzipped - no dependencies
+✨ A feather light state framework ✨ 446 bytes minified and gzipped - no dependencies
 
 Live examples:
 - [Feather To-Do app](https://codesandbox.io/p/devbox/feather-to-do-app-k5ss8j)
