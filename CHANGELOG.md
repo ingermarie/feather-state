@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.1.5
+- Add: Constructor name
+
 ## v1.1.4
 - Update README.md
 

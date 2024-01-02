@@ -1,44 +1,32 @@
-type IStore<S = unknown> = Store<S> & {
-	watchers: WeakMap<
-		object,
-		Record<PropertyKey, ((next: any, prev: any) => void)[]>
-	>;
-};
+type Watchers = WeakMap<
+	object,
+	Record<PropertyKey, ((next: any, prev: any) => void)[]>
+>;
 
-type BStore = {
-	watch: <P extends object, K extends keyof Omit<P, keyof BStore>>(
-		parent: P,
-		key: K,
-		notify: (next: P[K], prev: P[K]) => void
-	) => () => void;
-};
-
-export type Store<S = unknown> = BStore & (S extends object ? S : { state: S });
-
-const watch: Store['watch'] = function(this: IStore, parent, key, notify) {
-	let internalValue = parent[key];
+const watch: Store['watch'] = function(this: Watchers, parent, key, notify) {
+	let value = parent[key];
 	Object.defineProperty(parent, key, {
-		set: (value) => {
-			const refWatchers = this.watchers.get(parent);
+		set: (newValue) => {
+			const refWatchers = this.get(parent);
 			const keyWatchers = refWatchers?.[key];
-			const previousValue = internalValue;
-			if (value === previousValue) return;
+			const previousValue = value;
+			if (newValue === previousValue) return;
 
-			internalValue = value;
-			keyWatchers?.forEach((w) => w(value, previousValue));
+			value = newValue;
+			keyWatchers?.forEach((w) => w(newValue, previousValue));
 		},
 		get: () => {
-			return internalValue;
+			return value;
 		}
 	});
 
 	// Watch
-	let refWatchers = this.watchers.get(parent);
+	let refWatchers = this.get(parent);
 	let keyWatchers = refWatchers?.[key];
 
 	if (!refWatchers) {
 		refWatchers = {};
-		this.watchers.set(parent, refWatchers);
+		this.set(parent, refWatchers);
 	}
 	if (!keyWatchers) {
 		keyWatchers = [];
@@ -56,7 +44,7 @@ const watch: Store['watch'] = function(this: IStore, parent, key, notify) {
 			delete refWatchers[key];
 		}
 		if (refWatchers && !Object.keys(refWatchers).length) {
-			this.watchers.delete(parent);
+			this.delete(parent);
 		}
 	};
 	if (typeof window !== 'undefined' && typeof window.__featherCurrentRender__?.unmount === 'function') {
@@ -65,14 +53,26 @@ const watch: Store['watch'] = function(this: IStore, parent, key, notify) {
 	return unwatch;
 };
 
-export const store = <S>(state: S): Store<S> => {
-	const watchers: IStore['watchers'] = new WeakMap();
-	const storeApi = state !== null && typeof state === 'object' ? state : { state };
+declare class Store<S = unknown> {
+	constructor(state: S)
+	watch: <P extends object, K extends keyof Omit<P, 'watch'>>(
+		parent: P,
+		key: K,
+		notify: (next: P[K], prev: P[K]) => void
+	) => () => void;
+}
 
-	Object.defineProperties(storeApi, {
-		watchers: { value: watchers },
-		watch: { value: watch.bind(storeApi) }
+function Store<S = unknown>(this: Store<S>, state: S) {
+	const watchers: Watchers = new WeakMap();
+
+	Object.assign(this, state !== null && typeof state === 'object' ? state : { state });
+	Object.defineProperties(this, {
+		watch: { value: watch.bind(watchers) }
 	});
+}
 
-	return storeApi as Store<S>;
-};
+export const store = <S>(state: S) => {
+	return new Store<S>(state) as Store<S> & (S extends object ? S : { state: S });
+}
+
+export { Store };
