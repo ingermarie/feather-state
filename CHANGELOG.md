@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.1.8
+- Fix: Array store value handling
+- Update README.md
+
 ## v1.1.7
 - Fix: Configurable watch property (internal)
 

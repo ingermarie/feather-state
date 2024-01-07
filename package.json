@@ -1,6 +1,6 @@
 {
   "name": "feather-state",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "description": "A feather light state framework",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.mjs",
@@ -10,7 +10,7 @@
     "CHANGELOG.md"
   ],
   "scripts": {
-    "build": "tsup && gzip -c dist/clean.global.js | wc -c",
+    "build": "tsup && gzip -c temp/size.js | wc -c",
     "test": "tsup tests/tests.ts --outDir temp && node temp/tests.js"
   },
   "author": "ingermarien@gmail.com",

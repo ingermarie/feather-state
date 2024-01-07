@@ -1,28 +1,52 @@
 # Feather State
-![gzip](https://img.shields.io/badge/gzip-447_bytes-green)
+![gzip](https://img.shields.io/badge/gzip-468_bytes-green)
 ![license](https://img.shields.io/badge/license-ISC-blue)
-![version](https://img.shields.io/badge/npm-v1.1.7-blue)
+![version](https://img.shields.io/badge/npm-v1.1.8-blue)
 
-✨ A feather light state framework ✨ 451 bytes minified and gzipped - no dependencies
+✨ A feather light state framework ✨ 468 bytes minified and gzipped - no dependencies
+
+Companion frameworks:
+- [feather-render](https://www.npmjs.com/package/feather-render)
+- [feather-state-react](https://www.npmjs.com/package/feather-state-react)
 
 Live examples:
 - [Feather To-Do app](https://codesandbox.io/p/devbox/feather-to-do-app-k5ss8j)
 - [Feather To-Do app (inline)](https://codesandbox.io/p/devbox/feather-to-do-inline-4zt7ls)
 
-Companion frameworks:
-- Render - [feather-render](https://www.npmjs.com/package/feather-render)
-- State React - [feather-state-react](https://www.npmjs.com/package/feather-state-react)
-
-[![coffee](https://img.shields.io/badge/Buy_me_a_coffee%3F_❤️-724e2c)](https://www.paypal.com/paypalme/featherframework)
+[![coffee](https://img.shields.io/badge/Buy_me_a_coffee%3F_❤️-634832)](https://www.paypal.com/paypalme/featherframework)
 
 ## Getting started
+### Package
 ```
 npm i feather-state
 ```
 
+### ...or inline
+```html
+<head>
+  <script src="feather-state.min.js"></script>
+</head>
+<body>
+  <script>
+    const { store } = window.__feather__ || {};
+  </script>
+</body>
+```
+
+## Index
+Usage
+- [Basic syntax](#basic-syntax)
+
+Documentation
+- [`store()`](#store)
+
+Examples
+- [Object values](#object-values)
+- [Primitive values](#primitive-values)
 
 ## Usage
-```typescript
+### Basic syntax
+```ts
 import { store } from 'feather-state';
 
 const { watch, ...state } = store({
@@ -53,24 +77,28 @@ function addTodo(title: string): void {
 ```
 
 ## Documentation
-See [example](##Examples) usage below.
-
 ### `store()`
-```typescript
-store(state) => { state, watch() } | { ...state, watch() };
+```ts
+const { watch, state } = store(null);
+const { watch, state } = store(undefined);
+const { watch, state } = store(true);
+const { watch, state } = store(0);
+const { watch, state } = store('Hello, World!');
+const { watch, state } = store(['Item 1', 'Item 2']);
+const { watch, ...state } = store({ key: 'value' });
 ```
 #### Parameters
-- `state` - state value
+- `state` - value
 
 #### Return values
-- `state` | `...state` - state value
+- `state` | `...state` - value
 - `watch()` - watch for shallow mutations
 
----
-
 ### `store().watch()`
-```typescript
-watch(parent, key, callback) => unwatch();
+```ts
+const unwatch = watch(parent, 'key', (next, prev) => {
+  console.log(next, prev);
+});
 ```
 #### Parameters
 - `parent` - parent object of watched value
@@ -81,10 +109,8 @@ watch(parent, key, callback) => unwatch();
 - `unwatch()` - function to unwatch value
 
 ## Examples
-### Object values: e.g. `array`, `object`
-Properties are assigned directly to the store object:
-
-```typescript
+### Object values
+```ts
 const { watch, ...state } = store({
   isPlaying: true,
   playPauseAriaLabel: 'Pause'
@@ -109,10 +135,8 @@ const handleVisibilitychange = () => {
 };
 ```
 
-### Primitive values: e.g. `string`, `number`, `boolean`
-Values get stored in the `state` property:
-
-```typescript
+### Primitive values
+```ts
 const { watch, ...isPlaying } = store(true);
 const playPauseAriaLabel = store('Pause');
 
@@ -136,7 +160,6 @@ const handleVisibilitychange = () => {
 ```
 
 ## Roadmap 🚀
-- Minified version via CDN
 - Find more performant way of unwatching values
 - Cleaner way of referencing values in watcher parameters
 - Get even tinier in size

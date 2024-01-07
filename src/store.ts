@@ -67,7 +67,7 @@ declare class Store<S = unknown> {
 function Store<S = unknown>(this: Store<S>, state: S) {
 	const watchers: Watchers = new WeakMap();
 
-	Object.assign(this, state !== null && typeof state === 'object' ? state : { state });
+	Object.assign(this, state !== null && !Array.isArray(state) && typeof state === 'object' ? state : { state });
 	Object.defineProperties(this, {
 		watch: { value: watch.bind(watchers) }
 	});
