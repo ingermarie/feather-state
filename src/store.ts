@@ -6,6 +6,8 @@ type Watchers = WeakMap<
 const watch: Store['watch'] = function(this: Watchers, parent, key, notify) {
 	let value = parent[key];
 	Object.defineProperty(parent, key, {
+		configurable: true,
+		enumerable: true,
 		set: (newValue) => {
 			const refWatchers = this.get(parent);
 			const keyWatchers = refWatchers?.[key];
