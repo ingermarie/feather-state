@@ -73,6 +73,17 @@ function Store<S = unknown>(this: Store<S>, state: S) {
 	});
 }
 
+/**
+ * Create a new instance of `Store`
+ * @param state {(undefined|null|boolean|number|string|array|object)} - State value
+ * @returns {Store}
+ * @example
+ * import { store } from 'feather-state';
+ *
+ * const greetingStore = store({
+ * 	greeting: 'Hello, World!'
+ * });
+ */
 export const store = <S>(state: S) => {
 	return new Store<S>(state) as Store<S> & (S extends object ? S : { state: S });
 }

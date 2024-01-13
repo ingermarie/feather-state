@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.1.9
+- Add JSDoc
+
 ## v1.1.8
 - Fix: Array store value handling
 - Update README.md
