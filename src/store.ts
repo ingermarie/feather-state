@@ -3,7 +3,7 @@ type Watchers = WeakMap<
 	Record<PropertyKey, ((next: any, prev: any) => void)[]>
 >;
 
-const watch: Store['watch'] = function(this: Watchers, parent, key, notify) {
+const watch: IStore['watch'] = function(this: Watchers, parent, key, callback) {
 	let value = parent[key];
 	Object.defineProperty(parent, key, {
 		configurable: true,
@@ -34,10 +34,10 @@ const watch: Store['watch'] = function(this: Watchers, parent, key, notify) {
 		keyWatchers = [];
 		refWatchers[key] = keyWatchers;
 	}
-	keyWatchers.push(notify);
+	keyWatchers.push(callback);
 
 	const unwatch = () => {
-		const index = keyWatchers ? keyWatchers.indexOf(notify) : -1;
+		const index = keyWatchers ? keyWatchers.indexOf(callback) : -1;
 
 		if (index !== -1) {
 			keyWatchers?.splice(index, 1);
@@ -55,13 +55,30 @@ const watch: Store['watch'] = function(this: Watchers, parent, key, notify) {
 	return unwatch;
 };
 
-declare class Store<S = unknown> {
-	constructor(state: S)
-	watch: <P extends object, K extends keyof Omit<P, 'watch'>>(
+declare class IStore<S = unknown> {
+	constructor(state: S);
+	/**
+	 * Watch for shallow mutations
+	 * @param parent - Parent object of `key`
+	 * @param key - Key of `parent` to watch
+	 * @param callback - Callback to call when `parent[key]` changes
+	 * @returns {() => void} - Unwatch function
+	 * @example
+	 * import { store } from 'feather-state';
+	 *
+	 * const { watch, ...state } = store({
+	 * 	greeting: 'Hello, World!'
+	 * });
+	 *
+	 * const unwatch = watch(state, 'greeting', (next, prev) => {
+	 * 	console.log(next, prev);
+	 * });
+	 */
+	watch: <P extends object, K extends Exclude<keyof P, keyof IStore>>(
 		parent: P,
 		key: K,
-		notify: (next: P[K], prev: P[K]) => void
-	) => () => void;
+		callback: (next: P[K], prev: P[K]) => void
+	) => () => void;;
 }
 
 function Store<S = unknown>(this: Store<S>, state: S) {
@@ -85,7 +102,7 @@ function Store<S = unknown>(this: Store<S>, state: S) {
  * });
  */
 export const store = <S>(state: S) => {
-	return new Store<S>(state) as Store<S> & (S extends object ? S : { state: S });
+	return new (Store<S> as any)(state) as { [K in keyof Store<S>]: Store<S>[K] };
 }
 
-export { Store };
+export type Store<S = unknown> = (S extends object ? S : { state: S }) & IStore<S>;

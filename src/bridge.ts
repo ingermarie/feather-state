@@ -1,6 +1,5 @@
 export type IRender = {
-	refs: Record<string, Element | undefined>;
-	unmount: (callback: () => void) => void;
+	unmount?: (callback: () => void) => void;
 };
 
 declare global {

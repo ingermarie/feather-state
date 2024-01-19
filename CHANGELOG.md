@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.1.10
+- Improve JSDoc
+
 ## v1.1.9
 - Add JSDoc
 
