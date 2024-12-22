@@ -1,6 +1,6 @@
 {
   "name": "feather-state",
-  "version": "1.1.10",
+  "version": "1.1.11",
   "description": "A feather light state framework",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.mjs",
@@ -10,11 +10,16 @@
     "CHANGELOG.md"
   ],
   "scripts": {
+    "dev": "tsup --watch",
     "build": "tsup && gzip -c temp/size.js | wc -c",
     "test": "tsup tests/tests.ts --outDir temp && node temp/tests.js"
   },
   "author": "ingermarien@gmail.com",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ingermarie/feather-state.git"
+  },
   "devDependencies": {
     "terser": "^5.26.0",
     "tsup": "^8.0.1"

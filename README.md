@@ -1,7 +1,7 @@
 # Feather State
 ![gzip](https://img.shields.io/badge/gzip-468_bytes-green)
 ![license](https://img.shields.io/badge/license-ISC-blue)
-![version](https://img.shields.io/badge/npm-v1.1.10-blue)
+![version](https://img.shields.io/badge/npm-v1.1.11-blue)
 
 ✨ A feather light state framework ✨ 468 bytes minified and gzipped - no dependencies
 

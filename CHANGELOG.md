@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.1.11
+- Add repository url
+
 ## v1.1.10
 - Improve JSDoc
 
