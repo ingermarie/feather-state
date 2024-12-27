@@ -1,7 +1,7 @@
 # Changelog
 
-## v1.1.11 / v1.1.12
-- Add repository url
+## v1.1.11 – v1.1.13
+- Add repository url + correct README.md version
 
 ## v1.1.10
 - Improve JSDoc
