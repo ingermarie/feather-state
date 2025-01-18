@@ -4,6 +4,6 @@ export type IRender = {
 
 declare global {
 	interface Window {
-		__featherCurrentRender__?: IRender;
+		__featherCurrentRender__?: null | IRender;
 	}
 }

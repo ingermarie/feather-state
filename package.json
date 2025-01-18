@@ -1,6 +1,6 @@
 {
   "name": "feather-state",
-  "version": "1.1.13",
+  "version": "1.1.14",
   "description": "A feather light state framework",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.mjs",
@@ -21,7 +21,7 @@
     "url": "git+https://github.com/ingermarie/feather-state.git"
   },
   "devDependencies": {
-    "terser": "^5.26.0",
-    "tsup": "^8.0.1"
+    "terser": "^5.37.0",
+    "tsup": "^8.3.5"
   }
 }

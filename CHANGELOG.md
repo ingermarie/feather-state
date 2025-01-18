@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.1.14
+- Upgrading dev dependencies
+
 ## v1.1.11 – v1.1.13
 - Add repository url + correct README.md version
 
