@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.1.15
+- Update README.md
+
 ## v1.1.14
 - Upgrading dev dependencies
 
